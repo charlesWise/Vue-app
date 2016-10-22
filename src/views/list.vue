@@ -45,7 +45,14 @@
 </template>
 
 <script>
+    import nvHead from '../components/header.vue';
+    import nvTop from '../components/backtotop.vue';
+
     export default {
+        components:{
+            nvHead,
+            nvTop
+        },
         data (){
             return {
                 showMenu: false,
@@ -62,8 +69,9 @@
         },
         route:{
             data (transition){
-                let query = transition.to.query,tab = query.tab || 'all';
-
+                let query = transition.to.query,
+                    tab = query.tab || 'all';
+                debugger;
                 //记录首次加载的查询条件
                 if(this.searchDataStr == ""){
                     this.searchDataStr = JSON.stringify(this.searchKey);
@@ -74,7 +82,6 @@
                     this.searchKey.limit = 20;
                     this.searchKey = JSON.parse(this.searchDataStr);
                 }
-
 
                 //如果从详情返回并且typeid一样才去sessionStorge
                 if(sessionStorage.searchKey && transition.from.name === "topic"
@@ -96,6 +103,8 @@
                 });
 
             },
+
+            //滚动加载完执行
             deactivate (transition){
                 $(window).off('scroll');
                 if(transition.to.name === "topic"){
@@ -115,6 +124,7 @@
         methods:{
             getTopics (searchKey){
                 let params = $.param(this.searchKey);
+                console.log(params);
                 $.get('https://cnodejs.org/api/v1/topics?'+params,(d)=> {
                     this.scroll = true;
                     if(d && d.data){
@@ -132,6 +142,9 @@
             getScrollData (){
                 if(this.scroll){
                     let totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+
+                    console.log(totalheight);
+
                     if ($(document).height() <= totalheight + 200) {
                         this.scroll = false;
                         this.searchKey.limit += 20;
@@ -139,10 +152,6 @@
                     }
                 }
             }
-        },
-        components:{
-            "nvHead":require('../components/header.vue'),
-            "nvTop":require('../components/backtotop.vue')
         }
     }
 </script>

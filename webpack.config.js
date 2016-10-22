@@ -1,14 +1,14 @@
 'use strict'
 
-var path = require('path');
-var webpack = require("webpack");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var isProduction = function() {
+let path = require('path');
+let webpack = require("webpack");
+let ExtractTextPlugin = require("extract-text-webpack-plugin");
+let isProduction = function() {
     return process.env.NODE_ENV === 'production';
 }
 
 //webpack插件
-var plugins = [
+let plugins = [
     //提公用js到common.js文件中
     new webpack.optimize.CommonsChunkPlugin('common.js'),
     //将样式统一发布到style.css中
@@ -21,7 +21,7 @@ var plugins = [
       $: 'webpack-zepto'
     })
 ];
-var entry = ['./src/main'],
+let entry = ['./src/main'],
     cdnPrefix = "",
     buildPath = "/dist/",
     publishPath = cdnPrefix + buildPath;

@@ -1,5 +1,4 @@
 <template>
-    <!-- 全局header -->
     <div>
         <img class="index" src="../assets/images/index.png">
     </div>
@@ -8,7 +7,6 @@
     require('../assets/scss/iconfont/iconfont.css');
     require('../assets/scss/CV.scss');
     require('../assets/scss/github-markdown.css');
-
 
     export default {
         ready (){
@@ -25,4 +23,3 @@
         margin-top: 40%;
     }
 </style>
-
